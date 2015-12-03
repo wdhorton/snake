@@ -10,7 +10,9 @@
 
     $("html").on("keydown", function(e) {
       var key = e.keyCode;
-      this.board.snake.dir = View.KEYS[key];
+      if (key >= 37 && key <= 40) {
+        this.board.snake.turn(View.KEYS[key]);  
+      }
     }.bind(this));
 
     this.intervalId = setInterval(this.step.bind(this), 100);
