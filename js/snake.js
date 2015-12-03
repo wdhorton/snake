@@ -61,7 +61,7 @@
   };
 
   Snake.prototype.turn = function (newDir) {
-    if (this.dir !== Snake.OPPOSITES(newDir)) {
+    if (this.dir !== Snake.OPPOSITES[newDir]) {
       this.dir = newDir;
     }
   };
