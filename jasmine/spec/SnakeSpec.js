@@ -89,7 +89,7 @@ describe("Snake", function() {
     });
   });
 
-  describe("#turn", function (){
+  describe("#turn", function () {
     beforeEach(function () {
       snake.dir = "N";
     });
@@ -102,6 +102,35 @@ describe("Snake", function() {
     it("turns in allowed direction", function() {
       snake.turn("E");
       expect(snake.dir).toEqual("E");
+    });
+  });
+
+  describe("#grow", function () {
+    beforeEach(function () {
+      snake.dir = "N";
+    });
+
+    it("works for a single-block snake", function () {
+      snake.segments = [new SnakeGame.Coord([10, 10])];
+      snake.grow();
+      snake_positions = snake.segments.map(function (el) {
+        return el.pos();
+      });
+
+      expect(snake_positions).toContain([10, 10]);
+      expect(snake_positions).toContain([11, 10]);
+    });
+
+    it("works for multi-block snake", function () {
+      snake.segments = [new SnakeGame.Coord([5, 5]), new SnakeGame.Coord([6, 5])];
+      snake.grow();
+      snake_positions = snake.segments.map(function (el) {
+        return el.pos();
+      });
+
+      expect(snake_positions).toContain([5, 5]);
+      expect(snake_positions).toContain([6, 5]);
+      expect(snake_positions).toContain([7, 5]);
     });
   });
 });
