@@ -88,4 +88,20 @@ describe("Snake", function() {
       });
     });
   });
+
+  describe("#turn", function (){
+    beforeEach(function () {
+      snake.dir = "N";
+    });
+
+    it("does not allow turn in the opposite direction", function () {
+      snake.turn("S");
+      expect(snake.dir).toEqual("N");
+    });
+
+    it("turns in allowed direction", function() {
+      snake.turn("E");
+      expect(snake.dir).toEqual("E");
+    });
+  });
 });
