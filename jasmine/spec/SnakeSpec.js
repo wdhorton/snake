@@ -15,8 +15,23 @@ describe("Snake", function() {
       var newSegment = new SnakeGame.Coord([2, 10]);
       expect(snake.collidesWithSelf(newSegment)).toEqual(false);
     });
+  });
 
+  describe("#move", function () {
+    beforeEach(function () {
+      oldSegments = snake.segments.slice();
+    });
 
+    it("doesn't move when direction is X", function () {
+      snake.dir = "X";
+      snake.move();
+      expect(snake.segments).toEqual(oldSegments);
+    });
 
+    it("moves north", function () {
+      snake.dir = "N";
+      snake.move();
+      expect(true).toEqual(true);
+    });
   });
 });
