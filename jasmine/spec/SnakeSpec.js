@@ -28,10 +28,64 @@ describe("Snake", function() {
       expect(snake.segments).toEqual(oldSegments);
     });
 
-    it("moves north", function () {
-      snake.dir = "N";
-      snake.move();
-      expect(true).toEqual(true);
+    describe("single-block snake", function() {
+
+      it("moves north", function () {
+        snake.dir = "N";
+        snake.move();
+        expect(snake.segments[0].pos()).toEqual([9, 10]);
+      });
+
+      it("moves west", function () {
+        snake.dir = "W";
+        snake.move();
+        expect(snake.segments[0].pos()).toEqual([10, 9]);
+      });
+
+      it("moves east", function () {
+        snake.dir = "E";
+        snake.move();
+        expect(snake.segments[0].pos()).toEqual([10, 11]);
+      });
+
+      it("moves south", function () {
+        snake.dir = "S";
+        snake.move();
+        expect(snake.segments[0].pos()).toEqual([11, 10]);
+      });
+
+    });
+
+    describe("multi-block snake", function () {
+      it("moves correctly with bigger snake", function () {
+        snake.dir = "S";
+        snake.segments= [new SnakeGame.Coord([10,10]), new SnakeGame.Coord([9, 10])];
+        snake.move();
+        snake_positions = snake.segments.map(function (el) {
+          return el.pos();
+        });
+
+        expect(snake_positions).toContain([10, 10]);
+        expect(snake_positions).toContain([11, 10]);
+      });
+
+      it("has back parts continue to move in old direction after turn", function () {
+        snake.dir = "E";
+        snake.segments= [
+          new SnakeGame.Coord([10,10]),
+          new SnakeGame.Coord([9, 10]),
+          new SnakeGame.Coord([8, 10])
+        ];
+
+        snake.move();
+        snake_positions = snake.segments.map(function (el) {
+          return el.pos();
+        });
+
+        expect(snake_positions).toContain([10, 11]);
+        expect(snake_positions).toContain([10, 10]);
+        expect(snake_positions).toContain([9, 10]);
+      });
     });
   });
 });
