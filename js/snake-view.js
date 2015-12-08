@@ -8,12 +8,7 @@
     this.$el = $el;
     this.board = new window.SnakeGame.Board();
 
-    $("html").on("keydown", function(e) {
-      var key = e.keyCode;
-      if (key >= 37 && key <= 40) {
-        this.board.snake.turn(View.KEYS[key]);  
-      }
-    }.bind(this));
+    $("html").on("keydown", this.handleKeydown.bind(this));
 
     this.intervalId = setInterval(this.step.bind(this), 100);
   };
@@ -23,6 +18,13 @@
     38: "N",
     39: "E",
     40: "S"
+  };
+
+  View.prototype.handleKeydown = function (e) {
+    var key = e.keyCode;
+    if (key >= 37 && key <= 40) {
+      this.board.snake.turn(View.KEYS[key]);
+    }
   };
 
   View.prototype.step = function () {

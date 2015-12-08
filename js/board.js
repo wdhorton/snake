@@ -6,14 +6,16 @@
 
   var Board = window.SnakeGame.Board = function () {
     this.snake = new window.SnakeGame.Snake();
-    this.grid = this.makeGrid(20);
+    this.grid = this.makeGrid();
   };
+
+  Board.SIZE = 20;
 
   Board.prototype.makeGrid = function (size) {
     var grid = [];
-    for (var i = 0; i < size; i++) {
+    for (var i = 0; i < Board.SIZE; i++) {
       grid.push([]);
-      for (var j = 0; j < size; j++) {
+      for (var j = 0; j < Board.SIZE; j++) {
         grid[i].push(null);
       }
     }
